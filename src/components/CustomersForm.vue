@@ -25,9 +25,7 @@
                     >
                 </div>
                 <div class="form-field__error">
-                    <small
-                        v-if="$v.form.lastName.$dirty && !$v.form.lastName.required"
-                    >
+                    <small v-if="$v.form.lastName.$dirty && !$v.form.lastName.required">
                         Это поле обязательно
                     </small>
                 </div>
@@ -50,9 +48,7 @@
                     >
                 </div>
                 <div class="form-field__error">
-                    <small
-                        v-if="$v.form.firstName.$dirty && !$v.form.firstName.required"
-                    >
+                    <small v-if="$v.form.firstName.$dirty && !$v.form.firstName.required">
                         Это поле обязательно
                     </small>
                 </div>
@@ -62,7 +58,8 @@
                     <label
                         for="middleName"
                         class="form-field__item-label"
-                    >Отчество:</label>
+                    >
+                        Отчество:</label>
                     <input
                         v-model.trim="form.middleName"
                         class="form-field__item-input"
@@ -131,8 +128,7 @@
                         for="phoneNumber"
                         class="form-field__item-label"
                     >
-                        Номер телефона:
-                    </label>
+                        Номер телефона:</label>
                     <input
                         @input="numberValue($event.target.value)"
                         :value="form.phoneNumber"
@@ -157,7 +153,8 @@
                                     value="male"
                                     name="gender"
                                     class="checkbox"
-                                    type="radio">
+                                    type="radio"
+                                >
                                 <span class="fakeCheck"></span>
                             </label>
                         </div>
@@ -170,7 +167,8 @@
                                     id="female"
                                     name="gender"
                                     class="checkbox"
-                                    type="radio">
+                                    type="radio"
+                                >
                                 <span class="fakeCheck"></span>
                             </label>
                         </div>
@@ -205,9 +203,7 @@
                     </div>
                 </div>
                 <div class="form-field__error">
-                    <small
-                        v-if="$v.form.groupCustomers.$dirty && !$v.form.groupCustomers.required"
-                    >
+                    <small v-if="$v.form.groupCustomers.$dirty && !$v.form.groupCustomers.required">
                         Выберете группу клиентов
                     </small>
                 </div>
@@ -236,27 +232,13 @@
             <div class="form-field">
                 <div class="form-field__item">
                     <label class="labelCheck" for="sendMessage">
-                        <span class="textLabel" >Не отправлять СМС:</span>
+                        <span class="textLabel">Не отправлять СМС:</span>
                         <input
                             v-model="form.sendMessage"
-                            id='sendMessage' name='rememberMe' class="checkbox"  type='checkbox'
-                               >
-                        <span class="fakeCheck" ></span>
+                            id='sendMessage' name='rememberMe' class="checkbox" type='checkbox'
+                        >
+                        <span class="fakeCheck"></span>
                     </label>
-
-<!--                    <label-->
-<!--                        for="sendMessage"-->
-<!--                        class="form-field__item-label"-->
-<!--                    >-->
-<!--                        Не отправлять СМС:-->
-<!--                    </label>-->
-<!--                    <div class="form-field__item-checkbox">-->
-<!--                        <input-->
-<!--                            v-model="form.sendMessage"-->
-<!--                            id="sendMessage"-->
-<!--                            type="checkbox"-->
-<!--                        >-->
-<!--                    </div>-->
                 </div>
             </div>
 
@@ -509,319 +491,362 @@
 </template>
 
 <script>
-    import { validationMixin } from 'vuelidate'
-    import { required } from 'vuelidate/lib/validators'
-    import dataForValidation from '../mixins/dataForValidation'
+import { validationMixin } from 'vuelidate'
+import { required } from 'vuelidate/lib/validators'
+import dataForValidation from '../mixins/dataForValidation'
 
-    export default {
-        name: 'CustomersForm',
-        mixins: [ validationMixin, dataForValidation ],
-        data() {
-            return {
-                form: {
-                    lastName: '',
-                    firstName: '',
-                    middleName: '',
-                    birthDate: {
-                        birthDay: 'День',
-                        birthMonth: 'Месяц',
-                        birthYear: 'Год'
-                    },
-                    phoneNumber: '7',
-                    gender: '',
-                    attendingDoctor: 'Выберите врача',
-                    groupCustomers: [],
-                    sendMessage: false,
-                    index: '',
-                    country: '',
-                    region: '',
-                    city: '',
-                    street: '',
-                    house: '',
-                    documentTypes: 'Выберите тип документа',
-                    documentSeries: '',
-                    documentNumber: '',
-                    documentIssuedBy: '',
-                    documentDateOfIssue: {
-                        dayOfIssue: 'День',
-                        monthOfIssue: 'Месяц',
-                        yearOfIssue: 'Год'
-                    }
-                },
-                isDone: false
-            }
-        },
-        validations: {
+export default {
+    name: 'CustomersForm',
+    mixins: [ validationMixin, dataForValidation ],
+    data() {
+        return {
             form: {
-                lastName: { required },
-                firstName: { required },
+                lastName: '',
+                firstName: '',
+                middleName: '',
                 birthDate: {
-                    birthDay: {
-                        dayValidator( val ) {
-                            return val !== 'День'
-                        }
-                    },
-                    birthMonth: {
-                        monthValidator( val ) {
-                            return val !== 'Месяц'
-                        }
-                    },
-                    birthYear: {
-                        yearValidator( val ) {
-                            return val !== 'Год'
-                        }
-                    }
+                    birthDay: 'День',
+                    birthMonth: 'Месяц',
+                    birthYear: 'Год'
                 },
-                groupCustomers: { required },
-                city: { required },
-                documentTypes: {
-                    documentValidator( val ) {
-                        return val !== 'Выберите тип документа'
-                    }
-                },
+                phoneNumber: '7',
+                gender: '',
+                attendingDoctor: 'Выберите врача',
+                groupCustomers: [],
+                sendMessage: false,
+                index: '',
+                country: '',
+                region: '',
+                city: '',
+                street: '',
+                house: '',
+                documentTypes: 'Выберите тип документа',
+                documentSeries: '',
+                documentNumber: '',
+                documentIssuedBy: '',
                 documentDateOfIssue: {
-                    dayOfIssue: {
-                        dayValidator( val ) {
-                            return val !== 'День'
-                        }
-                    },
-                    monthOfIssue: {
-                        monthValidator( val ) {
-                            return val !== 'Месяц'
-                        }
-                    },
-                    yearOfIssue: {
-                        yearValidator( val ) {
-                            return val !== 'Год'
-                        }
+                    dayOfIssue: 'День',
+                    monthOfIssue: 'Месяц',
+                    yearOfIssue: 'Год'
+                }
+            },
+            isDone: false
+        }
+    },
+    validations: {
+        form: {
+            lastName: { required },
+            firstName: { required },
+            birthDate: {
+                birthDay: {
+                    dayValidator( val ) {
+                        return val !== 'День'
+                    }
+                },
+                birthMonth: {
+                    monthValidator( val ) {
+                        return val !== 'Месяц'
+                    }
+                },
+                birthYear: {
+                    yearValidator( val ) {
+                        return val !== 'Год'
                     }
                 }
-            }
-        },
-        methods: {
-            onSubmit() {
-                this.$v.form.$touch()
-                this.isDone = !this.$v.form.$error;
             },
-            numberValue( value ) {
-                if ( value.length <= 11 ) {
-                    this.form.phoneNumber = value
+            groupCustomers: { required },
+            city: { required },
+            documentTypes: {
+                documentValidator( val ) {
+                    return val !== 'Выберите тип документа'
                 }
-                this.$forceUpdate()
+            },
+            documentDateOfIssue: {
+                dayOfIssue: {
+                    dayValidator( val ) {
+                        return val !== 'День'
+                    }
+                },
+                monthOfIssue: {
+                    monthValidator( val ) {
+                        return val !== 'Месяц'
+                    }
+                },
+                yearOfIssue: {
+                    yearValidator( val ) {
+                        return val !== 'Год'
+                    }
+                }
             }
         }
+    },
+    methods: {
+        onSubmit() {
+            this.$v.form.$touch()
+            this.isDone = !this.$v.form.$error
+        },
+        numberValue( value ) {
+            if ( value.length <= 11 ) {
+                this.form.phoneNumber = value
+            }
+            this.$forceUpdate()
+        }
     }
+}
 </script>
 
 <style lang="scss">
-    @import "../styles/variables";
-    @import "../styles/mixins";
+@import "../styles/variables";
+@import "../styles/mixins";
 
-    /* <-- form --> */
+/* <-- form --> */
 
+.form {
+    &-container {
+        margin-top: $base * 30;
+        margin-bottom: $base * 30;
+        padding: $base * 30 $base * 65;
+        border-radius: $base * 5;
+        box-shadow: 0 0 $base * 10 #808080;
+
+        &.form-undone {
+            box-shadow: 0 0 $base * 10 $invalid-color;
+        }
+
+        &.form-done {
+            box-shadow: 0 0 $base * 10 $done-color;
+        }
+    }
+
+    &-title {
+        padding-bottom: $base * 30;
+        font-size: $base * 30;
+        text-align: center;
+    }
+
+    &-subtitle {
+        position: relative;
+        text-align: center;
+        margin-bottom: $base * 15;
+        padding-bottom: $base * 8;
+
+        &:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            border-bottom: solid $base * 1 #000;
+        }
+    }
+
+    &-field {
+        display: flex;
+        flex-direction: column;
+        height: $base * 50;
+
+        &.more-height {
+            height: $base * 75;
+        }
+
+        &__item {
+            display: flex;
+
+            &-label {
+                flex-basis: $flex-basis;
+                align-self: center;
+            }
+
+            &-wrapper {
+                display: flex;
+                justify-content: space-between;
+                flex-basis: $flex-basis;
+
+
+                &__select {
+                    @include select-options;
+
+                    height: $base * 30;
+                }
+
+                &__multiple {
+                    @include select-options;
+
+                }
+            }
+
+            &-input {
+                display: inline-block;
+                flex-basis: $flex-basis;
+                height: $base * 30;
+                padding: $base * 2 $base * 5;
+                border-width: $base * 1;
+                border-radius: $base * 4;
+                transition: $delay;
+
+                &::placeholder {
+                    font-size: $base * 12;
+                }
+            }
+
+            &-checkbox {
+                display: flex;
+                justify-content: flex-end;
+                flex-basis: $flex-basis;
+
+                & input {
+                    margin: 0;
+                    height: $base * 15;
+                    width: $base * 15;
+                }
+            }
+
+            &-invalid {
+                border: $base * 1.5 solid $invalid-color;
+            }
+        }
+
+        &__error {
+            align-self: flex-end;
+            color: $invalid-color;
+        }
+    }
+
+    &-description {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding-bottom: $base * 20;
+        height: $base * 70;
+
+        &__required {
+            font-size: $base * 13;
+        }
+
+        &__done {
+            text-align: center;
+            color: $done-color;
+            border-bottom: $base * 1 solid $done-color;
+        }
+    }
+
+    &-button {
+        text-align: center;
+
+        & input {
+            border-width: $base * 1;
+            border-radius: $base * 4;
+            padding: $base * 6 $base * 45;
+            background-color: #fff;
+            transition: $delay;
+
+            &:hover {
+                background-color: #f4f4f4;
+            }
+
+            &:active {
+                background-color: #F8F8F8;
+            }
+        }
+    }
+}
+
+/* <-- fake checkbox --> */
+
+.checkbox {
+    display: none;
+
+    &:checked + .fakeCheck::before {
+        opacity: 1;
+    }
+}
+
+.labelCheck {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fakeCheck {
+    width: $base * 16;
+    height: $base * 16;
+    position: relative;
+    background-color: $black-checkbox-color;
+
+    &::before {
+        content: "";
+        position: absolute;
+        width: $base * 8;
+        height: $base * 8;
+        background-color: $white-checkbox-color;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        transition: $delay;
+    }
+}
+
+.textLabel {
+    padding-right: $base * 4;
+}
+
+/* <-- / fake checkbox --> */
+
+input[type=number],
+input[type=text],
+select {
+    background-color: $white-color;
+
+    &:focus {
+        box-shadow: 0 0 $base * 1 $base * 1 #000;
+    }
+}
+
+.star {
+    color: $invalid-color;
+    font-size: $base * 13;
+}
+
+@media (max-width: $max-width-sm) {
     .form {
         &-container {
-            margin-top: $base * 30;
-            margin-bottom: $base * 30;
-            padding: $base * 30 $base * 65 $base * 30;
-            border-radius: $base *  5;
-            box-shadow: 0 0 $base * 10 #808080;
-
-            &.form-undone {
-                box-shadow: 0 0 $base * 10 $invalid-color;
-            }
-
-            &.form-done {
-                box-shadow: 0 0 $base * 10 $done-color;
-            }
+            margin-top: $base * 15;
+            margin-bottom: $base * 15;
+            padding: $base * 15 $base * 30;
         }
 
         &-title {
-            padding-bottom: $base * 30;
-            font-size: $base * 30;
-            text-align: center;
-        }
-
-        &-subtitle {
-            position: relative;
-            text-align: center;
-            margin-bottom: $base * 15;
-            padding-bottom: $base * 8;
-
-            &:before {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                border-bottom: solid 1px #000;
-            }
+            padding-bottom: $base * 15;
+            font-size: $base * 20;
         }
 
         &-field {
-            display: flex;
-            flex-direction: column;
-            height: $base * 50;
+            height: $base * 65;
 
             &.more-height {
-                height: $base * 75;
+                height: $base * 90;
             }
 
             &__item {
-                display: flex;
-
-                &-label {
-                    flex-basis: $flex-basis;
-                    align-self: center;
-                }
-
-                &-wrapper {
-                    display: flex;
-                    justify-content: space-between;
-                    flex-basis: $flex-basis;
-
-
-                    &__select {
-                        @include select-options;
-
-                        height: $base * 30;
-                    }
-
-                    &__multiple {
-                        @include select-options;
-
-                    }
-                }
+                flex-direction: column;
 
                 &-input {
-                    flex-basis: $flex-basis;
-                    height: $base * 30;
-                    padding: $base * 2 $base * 5;
-                    border-width: $base * 1;
-                    border-radius: $base * 4;
-                    transition: $delay;
-
-                    &::placeholder {
-                        font-size: $base * 12;
-                    }
+                    flex-basis: $base * 35;
                 }
 
-                &-checkbox {
-                    display: flex;
-                    justify-content: flex-end;
-                    flex-basis: $flex-basis;
-
-                    & input {
-                        margin: 0;
-                        height: $base * 15;
-                        width: $base * 15;
-                    }
+                &-wrapper__select {
+                    flex-basis: $base * 35;
                 }
 
-                &-invalid {
-                    border: $base * 1.5 solid $invalid-color;
-                }
-            }
-
-            &__error {
-                align-self: flex-end;
-                color: $invalid-color;
-            }
-        }
-
-        &-description {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding-bottom: $base * 20;
-            height: $base * 70;
-
-            &__required {
-                font-size: $base * 13;
-            }
-
-            &__done {
-                text-align: center;
-                color: $done-color;
-                border-bottom: $base * 1 solid $done-color;
-            }
-        }
-
-        &-button {
-            text-align: center;
-
-            & input {
-                border-width: $base * 1;
-                border-radius: $base * 4;
-                padding: $base * 6 $base * 30;
-                background-color: #fff;
-                transition: $delay;
-
-                &:hover {
-                    background-color: #f4f4f4;
-                }
-
-                &:active {
-                    background-color: #F8F8F8;
+                &-label {
+                    align-self: flex-start;
                 }
             }
         }
     }
+}
 
-    /* <-- fake checkbox --> */
-    .checkbox {
-        display: none;
-
-        &:checked + .fakeCheck::before {
-            opacity: 1;
-        }
-    }
-
-    .labelCheck {
-        flex-basis: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .fakeCheck {
-        width: $base * 16;
-        height: $base * 16;
-        position: relative;
-        background-color: $black-checkbox-color;
-
-        &::before {
-            content: "";
-            position: absolute;
-            width: $base * 8;
-            height: $base * 8;
-            background-color: $white-checkbox-color;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            transition: $delay;
-        }
-    }
-
-    .textLabel {
-        padding-right: $base * 4;
-    }
-
-    /* <-- / fake checkbox --> */
-
-    input[type=number],
-    input[type=text],
-    select {
-        &:focus {
-            box-shadow: 0 0 $base * 1 $base * 1 #000;
-        }
-    }
-
-    .star {
-        color: $invalid-color;
-        font-size: $base * 13;
-    }
-
-    /* <-- / form --> */
+/* <-- / form --> */
 </style>

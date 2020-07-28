@@ -5,7 +5,6 @@ export default {
                 {
                     label: 'Выберите врача',
                     value: 'Выберите врача'
-
                 },
                 {
                     label: 'Иванов',
