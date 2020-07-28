@@ -1,0 +1,7 @@
+@import "variables";
+
+@mixin select-options {
+    border-width: $base * 1;
+    border-radius: $base * 4;
+    flex-grow: 1;
+}

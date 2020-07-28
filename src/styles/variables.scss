@@ -1,0 +1,15 @@
+@import "functions";
+
+$base: rem(1px);
+
+// size
+$flex-basis: 50%;
+
+// color
+$invalid-color: red;
+$done-color: green;
+$black-checkbox-color: #000;
+$white-checkbox-color: #fff;
+
+// other
+$delay: .1s;
