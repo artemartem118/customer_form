@@ -1,9 +1,6 @@
 <template>
     <form @submit.prevent="onSubmit">
-        <div
-            :class="{'form-done': isDone, 'form-undone': $v.form.$error}"
-            class="form-container"
-        >
+        <div class="form-container">
             <div class="form-title">
                 Форма создание клиента
             </div>
@@ -128,14 +125,22 @@
                         for="phoneNumber"
                         class="form-field__item-label"
                     >
-                        Номер телефона:</label>
+                        Номер телефона<span class="star">*</span>:</label>
                     <input
-                        @input="numberValue($event.target.value)"
-                        :value="form.phoneNumber"
+                        v-model="form.phoneNumber"
+                        :class="$v.form.phoneNumber.$error ? 'form-field__item-invalid' : ''"
                         class="form-field__item-input"
                         id="phoneNumber"
                         type="number"
                         placeholder="Телефон клиента">
+                </div>
+                <div class="form-field__error">
+                    <small v-if="$v.form.phoneNumber.$dirty && !$v.form.phoneNumber.startWithSeven">
+                        Первая цифра в номере - 7
+                    </small>
+                    <small v-else-if="$v.form.phoneNumber.$dirty && !$v.form.phoneNumber.lengthNumber">
+                        Длина номера - 11 цифр
+                    </small>
                 </div>
             </div>
             <div class="form-field">
@@ -477,11 +482,6 @@
                 <div class="form-description__required">
                     <span class="star">*</span>Поле обязательное для заполнения
                 </div>
-                <div
-                    class="form-description__done"
-                    v-if="isDone"
-                >Клиент создан
-                </div>
             </div>
             <div class="form-button">
                 <input type="submit" value="Создать">
@@ -529,8 +529,7 @@ export default {
                     monthOfIssue: 'Месяц',
                     yearOfIssue: 'Год'
                 }
-            },
-            isDone: false
+            }
         }
     },
     validations: {
@@ -577,19 +576,23 @@ export default {
                         return val !== 'Год'
                     }
                 }
+            },
+            phoneNumber: {
+                startWithSeven( val ) {
+                    return val[0] === '7'
+                },
+                lengthNumber(val) {
+                    return val.length === 11
+                }
             }
         }
     },
     methods: {
         onSubmit() {
             this.$v.form.$touch()
-            this.isDone = !this.$v.form.$error
-        },
-        numberValue( value ) {
-            if ( value.length <= 11 ) {
-                this.form.phoneNumber = value
+            if ( !this.$v.form.$error ) {
+                this.$emit('successForm')
             }
-            this.$forceUpdate()
         }
     }
 }
@@ -603,19 +606,12 @@ export default {
 
 .form {
     &-container {
+        @include box-shadow-container;
+
         margin-top: $base * 30;
         margin-bottom: $base * 30;
         padding: $base * 30 $base * 65;
         border-radius: $base * 5;
-        box-shadow: 0 0 $base * 10 #808080;
-
-        &.form-undone {
-            box-shadow: 0 0 $base * 10 $invalid-color;
-        }
-
-        &.form-done {
-            box-shadow: 0 0 $base * 10 $done-color;
-        }
     }
 
     &-title {
@@ -627,6 +623,7 @@ export default {
     &-subtitle {
         position: relative;
         text-align: center;
+        font-size: $base * 20;
         margin-bottom: $base * 15;
         padding-bottom: $base * 8;
 
@@ -672,6 +669,7 @@ export default {
                 &__multiple {
                     @include select-options;
 
+                    height: 100%;
                 }
             }
 
@@ -702,7 +700,7 @@ export default {
             }
 
             &-invalid {
-                border: $base * 1.5 solid $invalid-color;
+                border: $base * 1 solid $invalid-color;
             }
         }
 
@@ -716,38 +714,19 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        padding-bottom: $base * 20;
-        height: $base * 70;
+        height: $base * 50;
 
         &__required {
             font-size: $base * 13;
-        }
-
-        &__done {
-            text-align: center;
-            color: $done-color;
-            border-bottom: $base * 1 solid $done-color;
+            align-self: flex-end;
         }
     }
 
     &-button {
         text-align: center;
 
-        & input {
-            border-width: $base * 1;
-            border-radius: $base * 4;
-            padding: $base * 6 $base * 45;
-            background-color: #fff;
-            transition: $delay;
+        @include button;
 
-            &:hover {
-                background-color: #f4f4f4;
-            }
-
-            &:active {
-                background-color: #F8F8F8;
-            }
-        }
     }
 }
 
@@ -806,7 +785,7 @@ select {
 
 .star {
     color: $invalid-color;
-    font-size: $base * 13;
+    font-size: $base * 15;
 }
 
 @media (max-width: $max-width-sm) {
