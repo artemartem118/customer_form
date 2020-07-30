@@ -15,7 +15,7 @@ export default {
     components: { CustomersForm, SuccessfulFormCreation },
     data() {
         return {
-            isFormSuccess: true
+            isFormSuccess: false
         }
     },
     methods: {
